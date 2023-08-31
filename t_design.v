@@ -1,0 +1,121 @@
+module t_d(clk,rst,count,ps,Light_M1,Light_M2,Light_M3,Light_M4);
+input clk,rst;
+parameter t1=3,t2=6,t3=4,t4=2,t5=5,s1=1,s2=2,s3=3,s4=4,s5=5,s6=6;
+output reg [2:0] Light_M1,Light_M2,Light_M3,Light_M4;
+output reg [3:0]count;
+output reg [2:0] ps;
+always@(posedge clk or rst)
+begin
+if(rst)
+begin
+count<=0;
+ps<=s1;
+end
+else
+begin
+case(ps)
+s1:if(count<t1)
+   begin
+   ps<=s1;
+   count<=count+1;
+   end
+   else
+   begin
+   ps<=s2;
+   count<=0;
+  end
+s2:if(count<t2)
+   begin
+   ps<=s2;
+   count<=count+1;
+   end
+   else
+   begin
+   ps<=s3;
+   count<=0;
+  end
+s3:if(count<t3)
+   begin
+   ps<=s3;
+   count<=count+1;
+   end
+   else
+   begin
+   ps<=s4;
+   count<=0;
+  end
+s4:if(count<t4)
+   begin
+   ps<=s4;
+   count<=count+1;
+   end
+   else
+   begin
+   ps<=s5;
+   count<=0;
+  end
+s5:if(count<t5)
+   begin
+   ps<=s5;
+   count<=count+1;
+   end
+   else
+   begin
+   ps<=s6;
+   count<=0;
+  end
+default:if(count<t1)
+   begin
+   ps<=s6;
+   count<=count+1;
+   end
+   else
+   begin
+   ps<=s1;
+   count<=0;
+  end
+endcase
+end
+end
+always@(ps)
+begin
+case(ps)
+s1:begin
+   Light_M1<=3'b001;
+   Light_M2<=3'b001;
+   Light_M3<=3'b100;
+   Light_M4<=3'b100;
+   end
+s2:begin
+   Light_M1<=3'b001;
+   Light_M2<=3'b010;
+   Light_M3<=3'b100;
+   Light_M4<=3'b100;
+   end
+s3:begin
+   Light_M1<=3'b001;
+   Light_M2<=3'b100;
+   Light_M3<=3'b001;
+   Light_M4<=3'b100;
+   end
+s4:begin
+   Light_M1<=3'b010;
+   Light_M2<=3'b100;
+   Light_M3<=3'b010;
+   Light_M4<=3'b100;
+   end
+s5:begin
+   Light_M1<=3'b100;
+   Light_M2<=3'b100;
+   Light_M3<=3'b100;
+   Light_M4<=3'b001;
+   end
+s6:begin
+   Light_M1<=3'b100;
+   Light_M2<=3'b100;
+   Light_M3<=3'b100;
+   Light_M4<=3'b100;
+   end
+endcase
+end
+endmodule
